@@ -365,9 +365,9 @@ function render() {
   const hrsPerWeek = (hours / 4.33).toFixed(1);
   const gsDesc = groupSize === 1 ? '1 worker per coach (1:1)' : groupSize === 2 ? '2 workers per coach' : '3 workers per coach (max efficiency)';
   document.getElementById('coach-note').textContent =
-    workers + ' workers ÷ ' + groupSize + ' per group = ' + r.coaches +
-    ' coach' + (r.coaches>1?'es':'') + '  ·  ' + gsDesc +
-    '  ·  ~' + hrsPerWeek + ' hrs/week per worker';
+    workers + ' workers Ã· ' + groupSize + ' per group = ' + r.coaches +
+    ' coach' + (r.coaches>1?'es':'') + '  Â·  ' + gsDesc +
+    '  Â·  ~' + hrsPerWeek + ' hrs/week per worker';
 
   document.getElementById('fixed-total-cell').textContent = fmt(FIXED);
   document.getElementById('fixed-badge').textContent = 'Fixed overhead: ' + fmt(FIXED) + '/mo';
@@ -411,13 +411,13 @@ function render() {
     <thead><tr><th>Line item</th><th class="r">Calculation</th><th class="r">Amount</th></tr></thead>
     <tbody>
       <tr class="cat-header"><td colspan="3">Revenue</td></tr>
-      <tr><td>State reimbursement</td><td class="r muted">${r.totalWorkerHours} hrs × $${RATE_STATE}</td><td class="r">${fmt(r.rev_state)}</td></tr>
-      <tr><td>Cleaning fees (BH co.)</td><td class="r muted">${r.totalWorkerHours} hrs × $${RATE_CLEAN}</td><td class="r">${fmt(r.rev_clean)}</td></tr>
+      <tr><td>State reimbursement</td><td class="r muted">${r.totalWorkerHours} hrs Ã— $${RATE_STATE}</td><td class="r">${fmt(r.rev_state)}</td></tr>
+      <tr><td>Cleaning fees (BH co.)</td><td class="r muted">${r.totalWorkerHours} hrs Ã— $${RATE_CLEAN}</td><td class="r">${fmt(r.rev_clean)}</td></tr>
       <tr style="font-weight:600"><td>Total revenue</td><td></td><td class="r" style="color:var(--green)">${fmt(r.rev_total)}</td></tr>
       <tr class="cat-header"><td colspan="3">Variable costs</td></tr>
-      <tr><td>Worker wages</td><td class="r muted">${r.totalWorkerHours} hrs × $${WAGE_WORKER}</td><td class="r">${fmt(r.cost_wages)}</td></tr>
-      <tr><td>Payroll taxes (7.65%)</td><td class="r muted">${fmt(r.cost_wages)} × 7.65%</td><td class="r">${fmt(r.cost_payroll)}</td></tr>
-      <tr><td>Job coach wages (${r.coaches})</td><td class="r muted">${r.coachHours} hrs × $${WAGE_COACH}</td><td class="r">${fmt(r.cost_coach)}</td></tr>
+      <tr><td>Worker wages</td><td class="r muted">${r.totalWorkerHours} hrs Ã— $${WAGE_WORKER}</td><td class="r">${fmt(r.cost_wages)}</td></tr>
+      <tr><td>Payroll taxes (7.65%)</td><td class="r muted">${fmt(r.cost_wages)} Ã— 7.65%</td><td class="r">${fmt(r.cost_payroll)}</td></tr>
+      <tr><td>Job coach wages (${r.coaches})</td><td class="r muted">${r.coachHours} hrs Ã— $${WAGE_COACH}</td><td class="r">${fmt(r.cost_coach)}</td></tr>
       <tr class="cat-header"><td colspan="3">Fixed costs</td></tr>
       <tr><td>CEO + program manager</td><td></td><td class="r">${fmt(100000/12 + 38000/12)}</td></tr>
       <tr><td>Rent</td><td></td><td class="r">$590.00</td></tr>
@@ -439,7 +439,7 @@ function render() {
       const hi  = gs === groupSize && cur;
       rows += `<td class="r" style="${hi?'color:var(--green)':''}">
         ${be2 ? '<strong>' + be2 + ' workers</strong>' : ''}
-        ${beR ? '<br><span style="font-size:11px;color:var(--text3);font-weight:400">' + beR.coaches + ' coach' + (beR.coaches>1?'es':'') + ' · ' + fmt(beR.rev_total) + '/mo</span>' : ''}
+        ${beR ? '<br><span style="font-size:11px;color:var(--text3);font-weight:400">' + beR.coaches + ' coach' + (beR.coaches>1?'es':'') + ' Â· ' + fmt(beR.rev_total) + '/mo</span>' : ''}
       </td>`;
     }
     rows += '</tr>';
@@ -447,7 +447,7 @@ function render() {
   rows += '</tbody>';
   document.getElementById('scenarios-table').innerHTML = rows;
 
-  document.getElementById('chart-desc').textContent = hours + ' hrs/mo per worker · ' + groupSize + ' per group';
+  document.getElementById('chart-desc').textContent = hours + ' hrs/mo per worker Â· ' + groupSize + ' per group';
 
   const maxW = Math.min(50, Math.max(25, (be || 10) + 10));
   const labels = [], profits = [], colors = [];
