@@ -1,9 +1,51 @@
+Attachment index.html added.Conversation opened. 1 unread message.
+
+Skip to content
+Using Peak Behavioral Health Mail with screen readers
+
+1 of 41,736
+(no subject)
+Inbox
+
+Bryan Ray <bray@peakbh.org>
+Attachments
+9:42 AM (0 minutes ago)
+to me
+
+
+
+--
+
+
+   Bryan Ray, Ph.D., BCBA
+
+CEO/Owner
+
+2405 Palmer Circle, Suite 100
+
+Norman, OK 73069
+
+405.561.7928
+
+peakbh.org
+
+
+
+Confidentiality Notice:
+
+The contents of this email message and any attachments are intended solely for the addressee(s) and may contain confidential and/or privileged information and may be legally protected from disclosure. If you are not the intended recipient of this message or their agent, or if this message has been addressed to you in error, please immediately alert the sender by reply email and then delete this message and any attachments. If you are not the intended recipient, you are hereby notified that any use, dissemination, copying, or storage of this message or its attachments is strictly prohibited.
+
+
+
+ One attachment
+  •  Scanned by Gmail
+Rennie@triumph-team.com. Press tab to insert.
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Supported Employment  Break-Even Model</title>
+<title>Supported Employment — Break-Even Model</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,6 +68,7 @@
     --blue: #185FA5;
     --blue-bg: #e6f1fb;
     --blue-text: #0c447c;
+    --amber: #BA7517;
     --amber-bg: #faeeda;
     --amber-text: #633806;
     --radius: 10px;
@@ -72,7 +115,7 @@
   header h1 { font-size: 20px; font-weight: 600; color: var(--text); }
   header p  { font-size: 13px; color: var(--text2); margin-top: 3px; }
 
-  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
 
   .card {
     background: var(--surface);
@@ -91,34 +134,6 @@
     margin-bottom: 14px;
   }
 
-  .slider-row {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .slider-label { font-size: 14px; color: var(--text2); min-width: 200px; }
-  .slider-val {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    min-width: 90px;
-    text-align: right;
-  }
-  input[type=range] {
-    flex: 1;
-    accent-color: var(--blue);
-    height: 4px;
-    cursor: pointer;
-  }
-  .coach-note {
-    font-size: 12px;
-    color: var(--text3);
-    padding-left: 214px;
-    margin-top: -8px;
-    margin-bottom: 4px;
-  }
-
   .metric-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0,1fr));
@@ -135,7 +150,7 @@
   .metric-label { font-size: 12px; color: var(--text2); margin-bottom: 5px; }
   .metric-value { font-size: 22px; font-weight: 600; }
   .bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin-top: 8px; overflow: hidden; }
-  .bar      { height: 6px; border-radius: 3px; transition: width .4s; }
+  .bar      { height: 6px; border-radius: 4px; transition: width .4s; }
 
   .badge {
     display: inline-block;
@@ -171,27 +186,10 @@
   td.muted { color: var(--text2); font-size: 12px; }
   tr.sub td { font-size: 12px; color: var(--text2); padding: 4px 0 4px 16px; }
   tr.total td { font-weight: 600; border-bottom: none; padding-top: 12px; }
-
   .cat-header td {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    color: var(--text3);
-    padding: 10px 0 4px;
-    border: none;
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .05em; color: var(--text3); padding: 10px 0 4px; border: none;
   }
-
-  .legend {
-    display: flex;
-    gap: 18px;
-    font-size: 12px;
-    color: var(--text2);
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-  }
-  .legend span { display: flex; align-items: center; gap: 5px; }
-  .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 
   .rate-box {
     background: var(--surface2);
@@ -202,24 +200,101 @@
     margin-bottom: 16px;
     display: flex;
     flex-wrap: wrap;
-    gap: 18px;
+    gap: 16px;
   }
   .rate-box strong { color: var(--text); }
 
-  footer {
-    text-align: center;
+  /* Group builder */
+  .groups-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .btn {
+    background: transparent;
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .btn:hover { background: var(--surface2); }
+  .btn-primary {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: .88; background: var(--blue); }
+  .btn-danger { color: var(--red); border-color: var(--red); font-size: 12px; padding: 4px 10px; }
+  .btn-danger:hover { background: var(--red-bg); }
+
+  .group-card {
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: center;
+  }
+  @media(max-width:650px) {
+    .group-card { grid-template-columns: 1fr 1fr; }
+  }
+
+  .group-num {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    min-width: 60px;
+  }
+
+  .field-wrap { display: flex; flex-direction: column; gap: 4px; }
+  .field-wrap label { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: .04em; }
+
+  select, input[type=number] {
+    background: var(--surface);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    font-size: 13px;
+    color: var(--text);
+    width: 100%;
+    outline: none;
+    transition: border-color .15s;
+  }
+  select:focus, input[type=number]:focus { border-color: var(--blue); }
+
+  .group-summary {
     font-size: 12px;
     color: var(--text3);
-    margin-top: 32px;
+    text-align: right;
+    white-space: nowrap;
   }
+
+  .legend {
+    display: flex; gap: 18px; font-size: 12px;
+    color: var(--text2); margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+  footer { text-align: center; font-size: 12px; color: var(--text3); margin-top: 32px; }
+
+  .group-colors { --c0:#185FA5;--c1:#1D9E75;--c2:#BA7517;--c3:#993556;--c4:#533AB7;--c5:#D85A30;--c6:#0F6E56;--c7:#993C1D; }
 </style>
 </head>
-<body>
+<body class="group-colors">
 
 <header>
   <div class="container">
-    <h1>Supported Employment  Break-Even &amp; Profit Model</h1>
-    <p>Adjust workers, group size, and hours to analyze your vocational company's financial position.</p>
+    <h1>Supported Employment — Break-Even &amp; Profit Model</h1>
+    <p>Configure each group individually with their own size and hours to get an accurate financial picture.</p>
   </div>
 </header>
 
@@ -227,34 +302,26 @@
 
   <div class="rate-box">
     <span>State reimbursement: <strong>$20.64/hr per worker</strong></span>
-    <span>Cleaning fee (from BH co.): <strong>$12.00/hr per worker</strong></span>
+    <span>Cleaning fee (BH co.): <strong>$12.00/hr per worker</strong></span>
     <span>Worker wage: <strong>$7.25/hr + 7.65% payroll tax</strong></span>
     <span>Job coach: <strong>$14.00/hr</strong></span>
     <span>Max workers per coach: <strong>3</strong></span>
   </div>
 
+  <!-- Group builder -->
   <div class="card">
-    <div class="section-label">Adjust assumptions</div>
-    <div class="slider-row">
-      <span class="slider-label">Workers with disabilities</span>
-      <input type="range" min="1" max="50" value="6" step="1" id="workers">
-      <span class="slider-val" id="workers-val">6 workers</span>
+    <div class="groups-header">
+      <div class="section-label" style="margin:0;">Your groups</div>
+      <button class="btn btn-primary" onclick="addGroup()">+ Add group</button>
     </div>
-    <div class="slider-row">
-      <span class="slider-label">Workers per group (13)</span>
-      <input type="range" min="1" max="3" value="3" step="1" id="groupsize">
-      <span class="slider-val" id="groupsize-val">3 per group</span>
-    </div>
-    <div class="slider-row">
-      <span class="slider-label">Avg hours / worker / month</span>
-      <input type="range" min="10" max="160" value="80" step="5" id="hours">
-      <span class="slider-val" id="hours-val">80 hrs/mo</span>
-    </div>
-    <div class="coach-note" id="coach-note"></div>
+    <div id="groups-container"></div>
+    <div style="font-size:12px;color:var(--text3);margin-top:8px;" id="program-summary"></div>
   </div>
 
+  <!-- Metrics -->
   <div class="metric-grid" id="metrics"></div>
 
+  <!-- P&L + Fixed -->
   <div class="two-col">
     <div class="card">
       <div class="section-label">Monthly P&amp;L</div>
@@ -269,34 +336,35 @@
           <tr><td>Program manager ($38k/yr)</td><td class="r">$3,166.67</td></tr>
           <tr><td>Rent</td><td class="r">$590.00</td></tr>
           <tr><td>Health insurance (gross $1,242.24)</td><td class="r"></td></tr>
-          <tr class="sub"><td>Employee share (50%)</td><td class="r" style="color:var(--green)">$621.12</td></tr>
+          <tr class="sub"><td>Employee share (50%)</td><td class="r" style="color:var(--green)">−$621.12</td></tr>
           <tr class="sub"><td><strong style="color:var(--text)">Net health cost</strong></td><td class="r"><strong style="color:var(--text)">$621.12</strong></td></tr>
           <tr><td>Dental insurance (gross $154)</td><td class="r"></td></tr>
-          <tr class="sub"><td>Employee contributions</td><td class="r" style="color:var(--green)">$77.00</td></tr>
+          <tr class="sub"><td>Employee contributions</td><td class="r" style="color:var(--green)">−$77.00</td></tr>
           <tr class="sub"><td><strong style="color:var(--text)">Net dental cost</strong></td><td class="r"><strong style="color:var(--text)">$77.00</strong></td></tr>
           <tr><td>Liability insurance</td><td class="r">$353.00</td></tr>
-          <tr class="total"><td>Total fixed overhead</td><td class="r" style="color:var(--red);font-size:15px" id="fixed-total-cell"></td></tr>
+          <tr class="total"><td>Total fixed overhead</td><td class="r" style="color:var(--red);font-size:15px">$13,140.79</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
+  <!-- Group breakdown table -->
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
-      <div class="section-label" style="margin:0;">Break-even by group size</div>
-      <span class="badge badge-info" id="fixed-badge"></span>
+    <div class="section-label">Group-by-group breakdown</div>
+    <div style="overflow-x:auto;">
+      <table id="group-breakdown"></table>
     </div>
-    <table id="scenarios-table"></table>
   </div>
 
+  <!-- Chart -->
   <div class="card">
-    <div class="section-label">Profit curve  <span id="chart-desc"></span></div>
+    <div class="section-label">Revenue vs costs by group</div>
     <div class="legend">
-      <span><span class="swatch" style="background:#1D9E75"></span>Profitable</span>
-      <span><span class="swatch" style="background:#E24B4A"></span>Loss</span>
-      <span><span class="swatch" style="background:#185FA5"></span>Your current selection</span>
+      <span><span class="swatch" style="background:#1D9E75"></span>State reimbursement</span>
+      <span><span class="swatch" style="background:#185FA5"></span>Cleaning fees</span>
+      <span><span class="swatch" style="background:#E24B4A"></span>Variable costs</span>
     </div>
-    <div style="position:relative;width:100%;height:300px;"><canvas id="profitChart"></canvas></div>
+    <div style="position:relative;width:100%;height:300px;"><canvas id="groupChart"></canvas></div>
   </div>
 
   <footer>
@@ -311,99 +379,157 @@ const RATE_CLEAN  = 12;
 const WAGE_WORKER = 7.25;
 const PAYROLL_TAX = 0.0765;
 const WAGE_COACH  = 14;
-const MAX_GROUP   = 3;
-const FIXED = (100000/12) + (38000/12) + 590 + 621.12 + 77 + 353;
+const FIXED       = (100000/12) + (38000/12) + 590 + 621.12 + 77 + 353;
 
-function fmt(n, decimals=2) {
-  const abs = Math.abs(n);
-  const s   = abs.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return (n < 0 ? '$' : '$') + s;
+let groups = [
+  { size: 3, hours: 80 },
+  { size: 2, hours: 60 },
+];
+let groupChart = null;
+let groupId = 10;
+
+function fmt(n, dec=2) {
+  const s = Math.abs(n).toFixed(dec).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  return (n < 0 ? '−$' : '$') + s;
 }
 
-function calc(workers, groupSize, hours) {
-  const coaches          = Math.ceil(workers / groupSize);
-  const totalWorkerHours = workers * hours;
-  const coachHours       = coaches * hours;
-  const rev_state        = totalWorkerHours * RATE_STATE;
-  const rev_clean        = totalWorkerHours * RATE_CLEAN;
-  const rev_total        = rev_state + rev_clean;
-  const cost_wages       = totalWorkerHours * WAGE_WORKER;
-  const cost_payroll     = cost_wages * PAYROLL_TAX;
-  const cost_coach       = coachHours * WAGE_COACH;
-  const cost_var         = cost_wages + cost_payroll + cost_coach;
-  const cost_total       = cost_var + FIXED;
-  return {
-    rev_state, rev_clean, rev_total,
-    cost_wages, cost_payroll, cost_coach,
-    cost_var, cost_total,
-    net: rev_total - cost_total,
-    coaches, totalWorkerHours, coachHours
-  };
+function calcGroup(g) {
+  const workerHours = g.size * g.hours;
+  const coachHours  = g.hours;
+  const rev_state   = workerHours * RATE_STATE;
+  const rev_clean   = workerHours * RATE_CLEAN;
+  const rev_total   = rev_state + rev_clean;
+  const cost_wages  = workerHours * WAGE_WORKER;
+  const cost_payroll= cost_wages * PAYROLL_TAX;
+  const cost_coach  = coachHours * WAGE_COACH;
+  const cost_var    = cost_wages + cost_payroll + cost_coach;
+  return { rev_state, rev_clean, rev_total, cost_wages, cost_payroll, cost_coach, cost_var,
+           workerHours, coachHours, margin: rev_total - cost_var };
 }
 
-function breakEven(groupSize, hours) {
-  for (let w = 1; w <= 500; w++) {
-    if (calc(w, groupSize, hours).net >= 0) return w;
-  }
-  return null;
+function calcTotal() {
+  let rev_state=0, rev_clean=0, cost_wages=0, cost_payroll=0, cost_coach=0;
+  let totalWorkers=0, totalWorkerHours=0;
+  groups.forEach(g => {
+    const r = calcGroup(g);
+    rev_state    += r.rev_state;
+    rev_clean    += r.rev_clean;
+    cost_wages   += r.cost_wages;
+    cost_payroll += r.cost_payroll;
+    cost_coach   += r.cost_coach;
+    totalWorkers += g.size;
+    totalWorkerHours += r.workerHours;
+  });
+  const rev_total  = rev_state + rev_clean;
+  const cost_var   = cost_wages + cost_payroll + cost_coach;
+  const cost_total = cost_var + FIXED;
+  return { rev_state, rev_clean, rev_total, cost_wages, cost_payroll, cost_coach,
+           cost_var, cost_total, net: rev_total - cost_total,
+           totalWorkers, totalWorkerHours, numGroups: groups.length };
 }
 
-let chart = null;
+function addGroup() {
+  groups.push({ size: 2, hours: 60, id: groupId++ });
+  renderGroups();
+  render();
+}
+
+function removeGroup(idx) {
+  if (groups.length === 1) return;
+  groups.splice(idx, 1);
+  renderGroups();
+  render();
+}
+
+function updateGroup(idx, field, val) {
+  groups[idx][field] = parseInt(val);
+  renderGroups();
+  render();
+}
+
+function renderGroups() {
+  const container = document.getElementById('groups-container');
+  container.innerHTML = '';
+  const colors = ['--c0','--c1','--c2','--c3','--c4','--c5','--c6','--c7'];
+
+  groups.forEach((g, i) => {
+    const r = calcGroup(g);
+    const hpw = (g.hours / 4.33).toFixed(0);
+    const color = `var(${colors[i % colors.length]})`;
+    const div = document.createElement('div');
+    div.className = 'group-card';
+    div.style.borderLeft = `3px solid ${color}`;
+    div.innerHTML = `
+      <div class="group-num" style="color:${color}">Group ${i+1}</div>
+      <div class="field-wrap">
+        <label>Workers in group</label>
+        <select onchange="updateGroup(${i},'size',this.value)">
+          <option value="1" ${g.size===1?'selected':''}>1 worker</option>
+          <option value="2" ${g.size===2?'selected':''}>2 workers</option>
+          <option value="3" ${g.size===3?'selected':''}>3 workers</option>
+        </select>
+      </div>
+      <div class="field-wrap">
+        <label>Hours / worker / month</label>
+        <input type="number" min="10" max="160" step="5" value="${g.hours}"
+               onchange="updateGroup(${i},'hours',this.value)"
+               oninput="updateGroup(${i},'hours',this.value)">
+      </div>
+      <div class="group-summary">
+        <div style="font-size:13px;font-weight:600;color:${r.margin>=0?'var(--green)':'var(--red)'}">
+          ${fmt(r.margin)} margin
+        </div>
+        <div style="color:var(--text3)">${r.workerHours} worker-hrs</div>
+        <div style="color:var(--text3)">~${hpw} hrs/week each</div>
+        <div style="color:var(--text3)">${fmt(r.rev_total)} revenue</div>
+      </div>
+      ${groups.length > 1
+        ? `<button class="btn btn-danger" onclick="removeGroup(${i})">Remove</button>`
+        : '<div></div>'}
+    `;
+    container.appendChild(div);
+  });
+
+  const t = calcTotal();
+  document.getElementById('program-summary').textContent =
+    `${t.numGroups} group${t.numGroups>1?'s':''} · ${t.totalWorkers} total workers · ${t.totalWorkerHours.toLocaleString()} total worker-hours/month`;
+}
 
 function render() {
-  const workers   = parseInt(document.getElementById('workers').value);
-  const groupSize = parseInt(document.getElementById('groupsize').value);
-  const hours     = parseInt(document.getElementById('hours').value);
+  const t = calcTotal();
+  const profitable = t.net >= 0;
+  const pct = t.rev_total > 0 ? Math.min(100, Math.max(0, t.net / t.rev_total * 100)) : 0;
 
-  document.getElementById('workers-val').textContent   = workers + ' worker' + (workers===1?'':'s');
-  document.getElementById('groupsize-val').textContent = groupSize + ' per group';
-  document.getElementById('hours-val').textContent     = hours + ' hrs/mo';
-
-  const r  = calc(workers, groupSize, hours);
-  const be = breakEven(groupSize, hours);
-
-  const hrsPerWeek = (hours / 4.33).toFixed(1);
-  const gsDesc = groupSize === 1 ? '1 worker per coach (1:1)' : groupSize === 2 ? '2 workers per coach' : '3 workers per coach (max efficiency)';
-  document.getElementById('coach-note').textContent =
-    workers + ' workers ÷ ' + groupSize + ' per group = ' + r.coaches +
-    ' coach' + (r.coaches>1?'es':'') + '  ·  ' + gsDesc +
-    '  ·  ~' + hrsPerWeek + ' hrs/week per worker';
-
-  document.getElementById('fixed-total-cell').textContent = fmt(FIXED);
-  document.getElementById('fixed-badge').textContent = 'Fixed overhead: ' + fmt(FIXED) + '/mo';
-
-  const profitable = r.net >= 0;
-  const pct = r.rev_total > 0 ? Math.min(100, Math.max(0, r.net / r.rev_total * 100)) : 0;
   const statusBadge = profitable
     ? '<span class="badge badge-success">Profitable</span>'
     : '<span class="badge badge-danger">Below break-even</span>';
-  const distToBreakEven = be
-    ? (workers < be
-        ? '<div style="font-size:11px;color:var(--text2);margin-top:4px">Need ' + (be - workers) + ' more worker' + (be-workers===1?'':'s') + ' to break even</div>'
-        : '<div style="font-size:11px;color:var(--green);margin-top:4px">' + (workers - be) + ' worker' + (workers-be===1?'':'s') + ' above break-even</div>')
-    : '';
+
+  const toBreakEven = FIXED - (t.rev_total - t.cost_var);
 
   document.getElementById('metrics').innerHTML = `
     <div class="metric">
       <div class="metric-label">Monthly revenue</div>
-      <div class="metric-value" style="color:var(--green)">${fmt(r.rev_total)}</div>
-      <div style="font-size:11px;color:var(--text2);margin-top:4px">${fmt(r.rev_state)} state + ${fmt(r.rev_clean)} cleaning</div>
+      <div class="metric-value" style="color:var(--green)">${fmt(t.rev_total)}</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">${fmt(t.rev_state)} state + ${fmt(t.rev_clean)} cleaning</div>
     </div>
     <div class="metric">
       <div class="metric-label">Monthly costs</div>
-      <div class="metric-value" style="color:var(--red)">${fmt(r.cost_total)}</div>
-      <div style="font-size:11px;color:var(--text2);margin-top:4px">${fmt(r.cost_var)} variable + ${fmt(FIXED)} fixed</div>
+      <div class="metric-value" style="color:var(--red)">${fmt(t.cost_total)}</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">${fmt(t.cost_var)} variable + ${fmt(FIXED)} fixed</div>
     </div>
     <div class="metric">
       <div class="metric-label">Net profit / loss</div>
-      <div class="metric-value" style="color:${profitable?'var(--green)':'var(--red)'}">${fmt(r.net)}</div>
+      <div class="metric-value" style="color:${profitable?'var(--green)':'var(--red)'}">${fmt(t.net)}</div>
       <div class="bar-wrap"><div class="bar" style="width:${pct.toFixed(1)}%;background:${profitable?'#1D9E75':'#E24B4A'}"></div></div>
     </div>
     <div class="metric">
       <div class="metric-label">Status</div>
       <div style="margin-top:6px">${statusBadge}</div>
-      <div style="font-size:11px;color:var(--text2);margin-top:4px">Break-even: ${be ? be + ' workers' : 'N/A'}</div>
-      ${distToBreakEven}
+      <div style="font-size:11px;color:var(--text2);margin-top:5px">
+        ${profitable
+          ? 'Earning <strong style="color:var(--green)">' + fmt(t.net) + '</strong>/mo profit'
+          : 'Need <strong style="color:var(--red)">' + fmt(toBreakEven) + '</strong> more margin'}
+      </div>
     </div>
   `;
 
@@ -411,78 +537,83 @@ function render() {
     <thead><tr><th>Line item</th><th class="r">Calculation</th><th class="r">Amount</th></tr></thead>
     <tbody>
       <tr class="cat-header"><td colspan="3">Revenue</td></tr>
-      <tr><td>State reimbursement</td><td class="r muted">${r.totalWorkerHours} hrs × $${RATE_STATE}</td><td class="r">${fmt(r.rev_state)}</td></tr>
-      <tr><td>Cleaning fees (BH co.)</td><td class="r muted">${r.totalWorkerHours} hrs × $${RATE_CLEAN}</td><td class="r">${fmt(r.rev_clean)}</td></tr>
-      <tr style="font-weight:600"><td>Total revenue</td><td></td><td class="r" style="color:var(--green)">${fmt(r.rev_total)}</td></tr>
+      <tr><td>State reimbursement</td><td class="r muted">${t.totalWorkerHours} hrs × $${RATE_STATE}</td><td class="r">${fmt(t.rev_state)}</td></tr>
+      <tr><td>Cleaning fees (BH co.)</td><td class="r muted">${t.totalWorkerHours} hrs × $${RATE_CLEAN}</td><td class="r">${fmt(t.rev_clean)}</td></tr>
+      <tr style="font-weight:600"><td>Total revenue</td><td></td><td class="r" style="color:var(--green)">${fmt(t.rev_total)}</td></tr>
       <tr class="cat-header"><td colspan="3">Variable costs</td></tr>
-      <tr><td>Worker wages</td><td class="r muted">${r.totalWorkerHours} hrs × $${WAGE_WORKER}</td><td class="r">${fmt(r.cost_wages)}</td></tr>
-      <tr><td>Payroll taxes (7.65%)</td><td class="r muted">${fmt(r.cost_wages)} × 7.65%</td><td class="r">${fmt(r.cost_payroll)}</td></tr>
-      <tr><td>Job coach wages (${r.coaches})</td><td class="r muted">${r.coachHours} hrs × $${WAGE_COACH}</td><td class="r">${fmt(r.cost_coach)}</td></tr>
+      <tr><td>Worker wages (${t.totalWorkers} workers)</td><td class="r muted">${t.totalWorkerHours} hrs × $${WAGE_WORKER}</td><td class="r">${fmt(t.cost_wages)}</td></tr>
+      <tr><td>Payroll taxes (7.65%)</td><td class="r muted">${fmt(t.cost_wages)} × 7.65%</td><td class="r">${fmt(t.cost_payroll)}</td></tr>
+      <tr><td>Job coach wages (${groups.length} coach${groups.length>1?'es':''})</td><td class="r muted">${groups.reduce((s,g)=>s+g.hours,0)} hrs × $${WAGE_COACH}</td><td class="r">${fmt(t.cost_coach)}</td></tr>
       <tr class="cat-header"><td colspan="3">Fixed costs</td></tr>
-      <tr><td>CEO + program manager</td><td></td><td class="r">${fmt(100000/12 + 38000/12)}</td></tr>
+      <tr><td>CEO + program manager</td><td></td><td class="r">${fmt(100000/12+38000/12)}</td></tr>
       <tr><td>Rent</td><td></td><td class="r">$590.00</td></tr>
       <tr><td>Health insurance (net)</td><td></td><td class="r">$621.12</td></tr>
       <tr><td>Dental insurance (net)</td><td></td><td class="r">$77.00</td></tr>
       <tr><td>Liability insurance</td><td></td><td class="r">$353.00</td></tr>
-      <tr style="font-weight:600"><td>Total costs</td><td></td><td class="r" style="color:var(--red)">${fmt(r.cost_total)}</td></tr>
-      <tr class="total"><td>Net profit / loss</td><td></td><td class="r" style="font-size:16px;color:${profitable?'var(--green)':'var(--red)'}">${fmt(r.net)}</td></tr>
+      <tr style="font-weight:600"><td>Total costs</td><td></td><td class="r" style="color:var(--red)">${fmt(t.cost_total)}</td></tr>
+      <tr class="total"><td>Net profit / loss</td><td></td><td class="r" style="font-size:16px;color:${profitable?'var(--green)':'var(--red)'}">${fmt(t.net)}</td></tr>
     </tbody>
   `;
 
-  let rows = `<thead><tr><th>Hrs/mo per worker</th><th class="r">1 per coach</th><th class="r">2 per coach</th><th class="r">3 per coach</th></tr></thead><tbody>`;
-  for (const h of [20, 40, 60, 80, 120, 160]) {
-    const cur = h === hours;
-    rows += `<tr style="${cur?'font-weight:600':''}"><td>${h} hrs${cur?' <span class="badge badge-info" style="font-size:10px;padding:1px 6px;margin-left:5px">current</span>':''}<br><span style="font-size:11px;color:var(--text3);font-weight:400">~${(h/4.33).toFixed(0)} hrs/week</span></td>`;
-    for (let gs = 1; gs <= 3; gs++) {
-      const be2 = breakEven(gs, h);
-      const beR = be2 ? calc(be2, gs, h) : null;
-      const hi  = gs === groupSize && cur;
-      rows += `<td class="r" style="${hi?'color:var(--green)':''}">
-        ${be2 ? '<strong>' + be2 + ' workers</strong>' : ''}
-        ${beR ? '<br><span style="font-size:11px;color:var(--text3);font-weight:400">' + beR.coaches + ' coach' + (beR.coaches>1?'es':'') + ' · ' + fmt(beR.rev_total) + '/mo</span>' : ''}
-      </td>`;
-    }
-    rows += '</tr>';
-  }
-  rows += '</tbody>';
-  document.getElementById('scenarios-table').innerHTML = rows;
+  const palette = ['#185FA5','#1D9E75','#BA7517','#993556','#533AB7','#D85A30','#0F6E56','#993C1D'];
+  let brkRows = `<thead><tr><th>Group</th><th class="r">Workers</th><th class="r">Hrs/worker</th><th class="r">Total hrs</th><th class="r">Revenue</th><th class="r">Variable costs</th><th class="r">Group margin</th></tr></thead><tbody>`;
+  const stateData=[], cleanData=[], varData=[], chartLabels=[];
 
-  document.getElementById('chart-desc').textContent = hours + ' hrs/mo per worker · ' + groupSize + ' per group';
+  groups.forEach((g, i) => {
+    const r = calcGroup(g);
+    const col = palette[i % palette.length];
+    const hpw = (g.hours/4.33).toFixed(0);
+    brkRows += `<tr>
+      <td><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${col};margin-right:6px;vertical-align:middle"></span>Group ${i+1}</td>
+      <td class="r">${g.size}</td>
+      <td class="r">${g.hours} <span style="color:var(--text3);font-size:11px">(~${hpw}/wk)</span></td>
+      <td class="r">${r.workerHours}</td>
+      <td class="r">${fmt(r.rev_total)}</td>
+      <td class="r">${fmt(r.cost_var)}</td>
+      <td class="r" style="font-weight:600;color:${r.margin>=0?'var(--green)':'var(--red)'}">${fmt(r.margin)}</td>
+    </tr>`;
+    chartLabels.push('Group ' + (i+1));
+    stateData.push(parseFloat(r.rev_state.toFixed(2)));
+    cleanData.push(parseFloat(r.rev_clean.toFixed(2)));
+    varData.push(parseFloat(r.cost_var.toFixed(2)));
+  });
 
-  const maxW = Math.min(50, Math.max(25, (be || 10) + 10));
-  const labels = [], profits = [], colors = [];
-  for (let w = 1; w <= maxW; w++) {
-    const cr = calc(w, groupSize, hours);
-    labels.push(w);
-    profits.push(parseFloat(cr.net.toFixed(2)));
-    colors.push(w === workers ? '#185FA5' : cr.net >= 0 ? '#1D9E75' : '#E24B4A');
-  }
+  brkRows += `<tr style="font-weight:600;border-top:1px solid var(--border2)">
+    <td>Total</td>
+    <td class="r">${t.totalWorkers}</td><td class="r">—</td>
+    <td class="r">${t.totalWorkerHours}</td>
+    <td class="r" style="color:var(--green)">${fmt(t.rev_total)}</td>
+    <td class="r">${fmt(t.cost_var)}</td>
+    <td class="r" style="color:${(t.rev_total-t.cost_var)>=0?'var(--green)':'var(--red)'}">
+      ${fmt(t.rev_total - t.cost_var)}
+      <div style="font-size:11px;font-weight:400;color:var(--text3)">before fixed overhead</div>
+    </td>
+  </tr>`;
+  brkRows += '</tbody>';
+  document.getElementById('group-breakdown').innerHTML = brkRows;
 
   const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
   const tickColor = isDark ? '#706e68' : '#888780';
 
-  if (chart) chart.destroy();
-  chart = new Chart(document.getElementById('profitChart'), {
+  if (groupChart) groupChart.destroy();
+  groupChart = new Chart(document.getElementById('groupChart'), {
     type: 'bar',
-    data: { labels, datasets: [{ data: profits, backgroundColor: colors, borderRadius: 3, borderSkipped: false }] },
+    data: {
+      labels: chartLabels,
+      datasets: [
+        { label: 'State reimbursement', data: stateData, backgroundColor: '#1D9E75', borderRadius: 3 },
+        { label: 'Cleaning fees',       data: cleanData, backgroundColor: '#185FA5', borderRadius: 3 },
+        { label: 'Variable costs',      data: varData,   backgroundColor: '#E24B4A', borderRadius: 3 },
+      ]
+    },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: {
-          title: ctx => ctx[0].label + ' worker' + (parseInt(ctx[0].label)===1?'':'s'),
-          label: ctx => (ctx.raw >= 0 ? 'Profit: ' : 'Loss: ') + fmt(ctx.raw)
-        }}
-      },
+      plugins: { legend: { display: false } },
       scales: {
-        x: {
-          title: { display: true, text: 'Number of workers', color: tickColor, font: { size: 12 } },
-          ticks: { color: tickColor, autoSkip: true, maxTicksLimit: 20 },
-          grid: { color: gridColor }
-        },
+        x: { ticks: { color: tickColor }, grid: { color: gridColor } },
         y: {
-          ticks: { color: tickColor, callback: v => (v < 0 ? '$' : '$') + Math.abs(v).toLocaleString() },
+          ticks: { color: tickColor, callback: v => '$' + v.toLocaleString() },
           grid: { color: gridColor }
         }
       }
@@ -490,10 +621,10 @@ function render() {
   });
 }
 
-document.getElementById('workers').addEventListener('input', render);
-document.getElementById('groupsize').addEventListener('input', render);
-document.getElementById('hours').addEventListener('input', render);
+renderGroups();
 render();
 </script>
 </body>
 </html>
+index.html
+Displaying index.html.
