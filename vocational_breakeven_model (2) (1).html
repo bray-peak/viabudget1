@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supported Employment  Break-Even Model</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f1efe8;
+    --border: rgba(0,0,0,0.12);
+    --border2: rgba(0,0,0,0.22);
+    --text: #1a1a18;
+    --text2: #5f5e5a;
+    --text3: #888780;
+    --green: #1D9E75;
+    --green-bg: #e1f5ee;
+    --green-text: #085041;
+    --red: #E24B4A;
+    --red-bg: #fcebeb;
+    --red-text: #791f1f;
+    --blue: #185FA5;
+    --blue-bg: #e6f1fb;
+    --blue-text: #0c447c;
+    --amber-bg: #faeeda;
+    --amber-text: #633806;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1c;
+      --surface: #2a2a27;
+      --surface2: #323230;
+      --border: rgba(255,255,255,0.1);
+      --border2: rgba(255,255,255,0.2);
+      --text: #e8e6e0;
+      --text2: #a8a69e;
+      --text3: #706e68;
+      --green-bg: #04342c;
+      --green-text: #9fe1cb;
+      --red-bg: #501313;
+      --red-text: #f09595;
+      --blue-bg: #042c53;
+      --blue-text: #b5d4f4;
+      --amber-bg: #412402;
+      --amber-text: #fac775;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  header h1 { font-size: 20px; font-weight: 600; color: var(--text); }
+  header p  { font-size: 13px; color: var(--text2); margin-top: 3px; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 14px;
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .slider-label { font-size: 14px; color: var(--text2); min-width: 200px; }
+  .slider-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 90px;
+    text-align: right;
+  }
+  input[type=range] {
+    flex: 1;
+    accent-color: var(--blue);
+    height: 4px;
+    cursor: pointer;
+  }
+  .coach-note {
+    font-size: 12px;
+    color: var(--text3);
+    padding-left: 214px;
+    margin-top: -8px;
+    margin-bottom: 4px;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  @media(max-width:600px) { .metric-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
+  .metric {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+  }
+  .metric-label { font-size: 12px; color: var(--text2); margin-bottom: 5px; }
+  .metric-value { font-size: 22px; font-weight: 600; }
+  .bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .bar      { height: 6px; border-radius: 3px; transition: width .4s; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .badge-success { background: var(--green-bg);  color: var(--green-text); }
+  .badge-danger  { background: var(--red-bg);    color: var(--red-text);   }
+  .badge-info    { background: var(--blue-bg);   color: var(--blue-text);  }
+  .badge-amber   { background: var(--amber-bg);  color: var(--amber-text); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media(max-width:650px) { .two-col { grid-template-columns: 1fr; } }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left;
+    padding: 7px 0;
+    font-weight: 500;
+    color: var(--text2);
+    border-bottom: 0.5px solid var(--border2);
+    font-size: 12px;
+  }
+  th.r, td.r { text-align: right; }
+  td { padding: 8px 0; border-bottom: 0.5px solid var(--border); color: var(--text); }
+  td.muted { color: var(--text2); font-size: 12px; }
+  tr.sub td { font-size: 12px; color: var(--text2); padding: 4px 0 4px 16px; }
+  tr.total td { font-weight: 600; border-bottom: none; padding-top: 12px; }
+
+  .cat-header td {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text3);
+    padding: 10px 0 4px;
+    border: none;
+  }
+
+  .legend {
+    display: flex;
+    gap: 18px;
+    font-size: 12px;
+    color: var(--text2);
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+  .rate-box {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .rate-box strong { color: var(--text); }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 32px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>Supported Employment  Break-Even &amp; Profit Model</h1>
+    <p>Adjust workers, group size, and hours to analyze your vocational company's financial position.</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="rate-box">
+    <span>State reimbursement: <strong>$20.64/hr per worker</strong></span>
+    <span>Cleaning fee (from BH co.): <strong>$12.00/hr per worker</strong></span>
+    <span>Worker wage: <strong>$7.25/hr + 7.65% payroll tax</strong></span>
+    <span>Job coach: <strong>$14.00/hr</strong></span>
+    <span>Max workers per coach: <strong>3</strong></span>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Adjust assumptions</div>
+    <div class="slider-row">
+      <span class="slider-label">Workers with disabilities</span>
+      <input type="range" min="1" max="50" value="6" step="1" id="workers">
+      <span class="slider-val" id="workers-val">6 workers</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-label">Workers per group (13)</span>
+      <input type="range" min="1" max="3" value="3" step="1" id="groupsize">
+      <span class="slider-val" id="groupsize-val">3 per group</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-label">Avg hours / worker / month</span>
+      <input type="range" min="10" max="160" value="80" step="5" id="hours">
+      <span class="slider-val" id="hours-val">80 hrs/mo</span>
+    </div>
+    <div class="coach-note" id="coach-note"></div>
+  </div>
+
+  <div class="metric-grid" id="metrics"></div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="section-label">Monthly P&amp;L</div>
+      <table id="pl-table"></table>
+    </div>
+    <div class="card">
+      <div class="section-label">Fixed overhead</div>
+      <table>
+        <thead><tr><th>Item</th><th class="r">Monthly</th></tr></thead>
+        <tbody>
+          <tr><td>CEO salary ($100k/yr)</td><td class="r">$8,333.33</td></tr>
+          <tr><td>Program manager ($38k/yr)</td><td class="r">$3,166.67</td></tr>
+          <tr><td>Rent</td><td class="r">$590.00</td></tr>
+          <tr><td>Health insurance (gross $1,242.24)</td><td class="r"></td></tr>
+          <tr class="sub"><td>Employee share (50%)</td><td class="r" style="color:var(--green)">$621.12</td></tr>
+          <tr class="sub"><td><strong style="color:var(--text)">Net health cost</strong></td><td class="r"><strong style="color:var(--text)">$621.12</strong></td></tr>
+          <tr><td>Dental insurance (gross $154)</td><td class="r"></td></tr>
+          <tr class="sub"><td>Employee contributions</td><td class="r" style="color:var(--green)">$77.00</td></tr>
+          <tr class="sub"><td><strong style="color:var(--text)">Net dental cost</strong></td><td class="r"><strong style="color:var(--text)">$77.00</strong></td></tr>
+          <tr><td>Liability insurance</td><td class="r">$353.00</td></tr>
+          <tr class="total"><td>Total fixed overhead</td><td class="r" style="color:var(--red);font-size:15px" id="fixed-total-cell"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+      <div class="section-label" style="margin:0;">Break-even by group size</div>
+      <span class="badge badge-info" id="fixed-badge"></span>
+    </div>
+    <table id="scenarios-table"></table>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Profit curve  <span id="chart-desc"></span></div>
+    <div class="legend">
+      <span><span class="swatch" style="background:#1D9E75"></span>Profitable</span>
+      <span><span class="swatch" style="background:#E24B4A"></span>Loss</span>
+      <span><span class="swatch" style="background:#185FA5"></span>Your current selection</span>
+    </div>
+    <div style="position:relative;width:100%;height:300px;"><canvas id="profitChart"></canvas></div>
+  </div>
+
+  <footer>
+    Built for internal planning purposes. All figures are estimates based on entered assumptions.
+  </footer>
+
+</div>
+
+<script>
+const RATE_STATE  = 20.64;
+const RATE_CLEAN  = 12;
+const WAGE_WORKER = 7.25;
+const PAYROLL_TAX = 0.0765;
+const WAGE_COACH  = 14;
+const MAX_GROUP   = 3;
+const FIXED = (100000/12) + (38000/12) + 590 + 621.12 + 77 + 353;
+
+function fmt(n, decimals=2) {
+  const abs = Math.abs(n);
+  const s   = abs.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return (n < 0 ? '$' : '$') + s;
+}
+
+function calc(workers, groupSize, hours) {
+  const coaches          = Math.ceil(workers / groupSize);
+  const totalWorkerHours = workers * hours;
+  const coachHours       = coaches * hours;
+  const rev_state        = totalWorkerHours * RATE_STATE;
+  const rev_clean        = totalWorkerHours * RATE_CLEAN;
+  const rev_total        = rev_state + rev_clean;
+  const cost_wages       = totalWorkerHours * WAGE_WORKER;
+  const cost_payroll     = cost_wages * PAYROLL_TAX;
+  const cost_coach       = coachHours * WAGE_COACH;
+  const cost_var         = cost_wages + cost_payroll + cost_coach;
+  const cost_total       = cost_var + FIXED;
+  return {
+    rev_state, rev_clean, rev_total,
+    cost_wages, cost_payroll, cost_coach,
+    cost_var, cost_total,
+    net: rev_total - cost_total,
+    coaches, totalWorkerHours, coachHours
+  };
+}
+
+function breakEven(groupSize, hours) {
+  for (let w = 1; w <= 500; w++) {
+    if (calc(w, groupSize, hours).net >= 0) return w;
+  }
+  return null;
+}
+
+let chart = null;
+
+function render() {
+  const workers   = parseInt(document.getElementById('workers').value);
+  const groupSize = parseInt(document.getElementById('groupsize').value);
+  const hours     = parseInt(document.getElementById('hours').value);
+
+  document.getElementById('workers-val').textContent   = workers + ' worker' + (workers===1?'':'s');
+  document.getElementById('groupsize-val').textContent = groupSize + ' per group';
+  document.getElementById('hours-val').textContent     = hours + ' hrs/mo';
+
+  const r  = calc(workers, groupSize, hours);
+  const be = breakEven(groupSize, hours);
+
+  const hrsPerWeek = (hours / 4.33).toFixed(1);
+  const gsDesc = groupSize === 1 ? '1 worker per coach (1:1)' : groupSize === 2 ? '2 workers per coach' : '3 workers per coach (max efficiency)';
+  document.getElementById('coach-note').textContent =
+    workers + ' workers ÷ ' + groupSize + ' per group = ' + r.coaches +
+    ' coach' + (r.coaches>1?'es':'') + '  ·  ' + gsDesc +
+    '  ·  ~' + hrsPerWeek + ' hrs/week per worker';
+
+  document.getElementById('fixed-total-cell').textContent = fmt(FIXED);
+  document.getElementById('fixed-badge').textContent = 'Fixed overhead: ' + fmt(FIXED) + '/mo';
+
+  const profitable = r.net >= 0;
+  const pct = r.rev_total > 0 ? Math.min(100, Math.max(0, r.net / r.rev_total * 100)) : 0;
+  const statusBadge = profitable
+    ? '<span class="badge badge-success">Profitable</span>'
+    : '<span class="badge badge-danger">Below break-even</span>';
+  const distToBreakEven = be
+    ? (workers < be
+        ? '<div style="font-size:11px;color:var(--text2);margin-top:4px">Need ' + (be - workers) + ' more worker' + (be-workers===1?'':'s') + ' to break even</div>'
+        : '<div style="font-size:11px;color:var(--green);margin-top:4px">' + (workers - be) + ' worker' + (workers-be===1?'':'s') + ' above break-even</div>')
+    : '';
+
+  document.getElementById('metrics').innerHTML = `
+    <div class="metric">
+      <div class="metric-label">Monthly revenue</div>
+      <div class="metric-value" style="color:var(--green)">${fmt(r.rev_total)}</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">${fmt(r.rev_state)} state + ${fmt(r.rev_clean)} cleaning</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Monthly costs</div>
+      <div class="metric-value" style="color:var(--red)">${fmt(r.cost_total)}</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">${fmt(r.cost_var)} variable + ${fmt(FIXED)} fixed</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Net profit / loss</div>
+      <div class="metric-value" style="color:${profitable?'var(--green)':'var(--red)'}">${fmt(r.net)}</div>
+      <div class="bar-wrap"><div class="bar" style="width:${pct.toFixed(1)}%;background:${profitable?'#1D9E75':'#E24B4A'}"></div></div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Status</div>
+      <div style="margin-top:6px">${statusBadge}</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px">Break-even: ${be ? be + ' workers' : 'N/A'}</div>
+      ${distToBreakEven}
+    </div>
+  `;
+
+  document.getElementById('pl-table').innerHTML = `
+    <thead><tr><th>Line item</th><th class="r">Calculation</th><th class="r">Amount</th></tr></thead>
+    <tbody>
+      <tr class="cat-header"><td colspan="3">Revenue</td></tr>
+      <tr><td>State reimbursement</td><td class="r muted">${r.totalWorkerHours} hrs × $${RATE_STATE}</td><td class="r">${fmt(r.rev_state)}</td></tr>
+      <tr><td>Cleaning fees (BH co.)</td><td class="r muted">${r.totalWorkerHours} hrs × $${RATE_CLEAN}</td><td class="r">${fmt(r.rev_clean)}</td></tr>
+      <tr style="font-weight:600"><td>Total revenue</td><td></td><td class="r" style="color:var(--green)">${fmt(r.rev_total)}</td></tr>
+      <tr class="cat-header"><td colspan="3">Variable costs</td></tr>
+      <tr><td>Worker wages</td><td class="r muted">${r.totalWorkerHours} hrs × $${WAGE_WORKER}</td><td class="r">${fmt(r.cost_wages)}</td></tr>
+      <tr><td>Payroll taxes (7.65%)</td><td class="r muted">${fmt(r.cost_wages)} × 7.65%</td><td class="r">${fmt(r.cost_payroll)}</td></tr>
+      <tr><td>Job coach wages (${r.coaches})</td><td class="r muted">${r.coachHours} hrs × $${WAGE_COACH}</td><td class="r">${fmt(r.cost_coach)}</td></tr>
+      <tr class="cat-header"><td colspan="3">Fixed costs</td></tr>
+      <tr><td>CEO + program manager</td><td></td><td class="r">${fmt(100000/12 + 38000/12)}</td></tr>
+      <tr><td>Rent</td><td></td><td class="r">$590.00</td></tr>
+      <tr><td>Health insurance (net)</td><td></td><td class="r">$621.12</td></tr>
+      <tr><td>Dental insurance (net)</td><td></td><td class="r">$77.00</td></tr>
+      <tr><td>Liability insurance</td><td></td><td class="r">$353.00</td></tr>
+      <tr style="font-weight:600"><td>Total costs</td><td></td><td class="r" style="color:var(--red)">${fmt(r.cost_total)}</td></tr>
+      <tr class="total"><td>Net profit / loss</td><td></td><td class="r" style="font-size:16px;color:${profitable?'var(--green)':'var(--red)'}">${fmt(r.net)}</td></tr>
+    </tbody>
+  `;
+
+  let rows = `<thead><tr><th>Hrs/mo per worker</th><th class="r">1 per coach</th><th class="r">2 per coach</th><th class="r">3 per coach</th></tr></thead><tbody>`;
+  for (const h of [20, 40, 60, 80, 120, 160]) {
+    const cur = h === hours;
+    rows += `<tr style="${cur?'font-weight:600':''}"><td>${h} hrs${cur?' <span class="badge badge-info" style="font-size:10px;padding:1px 6px;margin-left:5px">current</span>':''}<br><span style="font-size:11px;color:var(--text3);font-weight:400">~${(h/4.33).toFixed(0)} hrs/week</span></td>`;
+    for (let gs = 1; gs <= 3; gs++) {
+      const be2 = breakEven(gs, h);
+      const beR = be2 ? calc(be2, gs, h) : null;
+      const hi  = gs === groupSize && cur;
+      rows += `<td class="r" style="${hi?'color:var(--green)':''}">
+        ${be2 ? '<strong>' + be2 + ' workers</strong>' : ''}
+        ${beR ? '<br><span style="font-size:11px;color:var(--text3);font-weight:400">' + beR.coaches + ' coach' + (beR.coaches>1?'es':'') + ' · ' + fmt(beR.rev_total) + '/mo</span>' : ''}
+      </td>`;
+    }
+    rows += '</tr>';
+  }
+  rows += '</tbody>';
+  document.getElementById('scenarios-table').innerHTML = rows;
+
+  document.getElementById('chart-desc').textContent = hours + ' hrs/mo per worker · ' + groupSize + ' per group';
+
+  const maxW = Math.min(50, Math.max(25, (be || 10) + 10));
+  const labels = [], profits = [], colors = [];
+  for (let w = 1; w <= maxW; w++) {
+    const cr = calc(w, groupSize, hours);
+    labels.push(w);
+    profits.push(parseFloat(cr.net.toFixed(2)));
+    colors.push(w === workers ? '#185FA5' : cr.net >= 0 ? '#1D9E75' : '#E24B4A');
+  }
+
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+  const tickColor = isDark ? '#706e68' : '#888780';
+
+  if (chart) chart.destroy();
+  chart = new Chart(document.getElementById('profitChart'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: profits, backgroundColor: colors, borderRadius: 3, borderSkipped: false }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: {
+          title: ctx => ctx[0].label + ' worker' + (parseInt(ctx[0].label)===1?'':'s'),
+          label: ctx => (ctx.raw >= 0 ? 'Profit: ' : 'Loss: ') + fmt(ctx.raw)
+        }}
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'Number of workers', color: tickColor, font: { size: 12 } },
+          ticks: { color: tickColor, autoSkip: true, maxTicksLimit: 20 },
+          grid: { color: gridColor }
+        },
+        y: {
+          ticks: { color: tickColor, callback: v => (v < 0 ? '$' : '$') + Math.abs(v).toLocaleString() },
+          grid: { color: gridColor }
+        }
+      }
+    }
+  });
+}
+
+document.getElementById('workers').addEventListener('input', render);
+document.getElementById('groupsize').addEventListener('input', render);
+document.getElementById('hours').addEventListener('input', render);
+render();
+</script>
+</body>
+</html>
