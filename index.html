@@ -508,6 +508,30 @@ function removeGroup(idx) {
   renderGroups(); render();
 }
 
+// Lightweight update for the hours number input — updates data + summaries
+// without destroying the input field (which would steal focus mid-typing)
+function updateHours(idx, val) {
+  const n = parseFloat(val);
+  if (isNaN(n) || n <= 0) return;
+  groups[idx].hours = n;
+  const r = calcGroup(groups[idx]);
+  const el = document.getElementById('gsummary-' + idx);
+  if (el) {
+    el.innerHTML = `
+      <div style="font-size:13px;font-weight:600;color:${r.margin>=0?'var(--green)':'var(--red)'}">
+        ${fmt(r.margin)} margin
+      </div>
+      <div style="color:var(--text3)">${r.workerHours} worker-hrs</div>
+      <div style="color:var(--text3)">~${(n/4.33).toFixed(0)} hrs/week each</div>
+      <div style="color:var(--text3)">${fmt(r.rev_total)} revenue</div>
+    `;
+  }
+  const t = calcTotal();
+  const ps = document.getElementById('program-summary');
+  if (ps) ps.textContent = `${t.numGroups} group${t.numGroups>1?'s':''} · ${t.totalWorkers} total workers · ${t.totalWorkerHours.toLocaleString()} total worker-hours/month`;
+  render();
+}
+
 function updateGroup(idx, field, val) {
   groups[idx][field] = parseFloat(val);
   renderGroups(); render();
@@ -575,8 +599,8 @@ function renderGroups() {
         <div class="field-wrap">
           <label>Hours / worker / month</label>
           <input type="number" min="10" max="160" step="5" value="${g.hours}"
-                 onchange="updateGroup(${i},'hours',this.value)"
-                 oninput="updateGroup(${i},'hours',this.value)">
+                 oninput="updateHours(${i}, this.value)"
+                 onblur="updateGroup(${i},'hours',this.value)">
         </div>
         <div class="group-summary" id="gsummary-${i}">
           <div style="font-size:13px;font-weight:600;color:${r.margin>=0?'var(--green)':'var(--red)'}">
